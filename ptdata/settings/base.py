@@ -2,17 +2,26 @@
 # Temporary files directory.
 TMP_DIR = 'tmp'
 
-# Primary source URL for published date.
-UPDATED_URL = 'https://www.dgeec.mec.pt/np4/38/?form'
+# Filename separator.
+SEP = '__'
+
+# Primary source filename prefix.
+PRIMARY_PREFIX = 'dgeec'
+
+# Primary source base URL.
+PRIMARY_BASEURL = 'https://www.dgeec.mec.pt/np4/38/'
+
+# Query parameter to obtain published date.
+PRIMARY_UPDATED_PARAM = 'form'
 
 # Substring indicating location of published date.
-UPDATED_GREP = 'Atualizado em'
+PRIMARY_UPDATED_GREP = 'Atualizado em'
 
-# Primary source URL for paged results.
-PAGED_URL = 'https://www.dgeec.mec.pt/np4/38/?page=0'
+# Query parameter to obtain paged results.
+PRIMARY_PAGED_PARAM = 'page'
 
 # Table headers in paged results and corresponding DataFrame headers.
-PAGED_TO_DF = {
+PRIMARY_PAGED_TO_DF = {
     'Nome do estabelecimento': 'nomeEstabelecimento',
     'Tipo de Ensino': 'tipoEnsino',
     'Dependência': 'dependencia',
@@ -20,9 +29,9 @@ PAGED_TO_DF = {
 }
 
 # Field names in individual results and corresponding DataFrame headers.
-RESULT_TO_DF = {
+PRIMARY_RESULT_TO_DF = {
     'Nome do Estabelecimento': 'nomeEstabelecimento',
-    'Depende de': 'dependencia',
+    'Depende de': 'depende',
     'Código do Estabelecimento': 'codigoEstabelecimento',
     'Tipo de Ensino': 'tipoEnsino',
     'Website': 'website',
@@ -37,8 +46,14 @@ RESULT_TO_DF = {
     'Outro Fax': 'outroFax',
 }
 
-# Secondary source URL for postal code search.
-POSTAL_URL = 'https://json.geoapi.pt/cp/'
+# Secondary source filename prefix.
+SECONDARY_PREFIX = 'geoapi'
+
+# Secondary source base URL.
+SECONDARY_BASEURL = 'https://json.geoapi.pt/cp/'
+
+# ECHE API prefix.
+ECHEAPI_PREFIX = 'echeapi'
 
 # ECHE API URL for scoped results.
 ECHEAPI_URL = 'https://eche-list.erasmuswithoutpaper.eu/api/countryCodeIso/PT/'
