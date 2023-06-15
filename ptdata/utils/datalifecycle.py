@@ -31,7 +31,6 @@ def get(url, path_args=None, params_dict=None):
 def write_dated(bytes, source, filedate='', subset='index', ext='csv'):
     filedate = filedate if filedate else str(date.today())
     filename = f'{source}{settings.SEP}{filedate}{settings.SEP}{subset}.{ext}'
-    filename = os.path.join(settings.TMP_DIR, filename)
 
     write(bytes, filename)
 
@@ -39,6 +38,7 @@ def write_dated(bytes, source, filedate='', subset='index', ext='csv'):
 def write(bytes, filename):
     fp.info(fp.fgb('Writing data to local file...'))
 
+    filename = os.path.join(settings.TMP_DIR, filename)
     display_dirname = fp.sm(os.path.join(os.path.dirname(filename), ''))
 
     with open(filename, 'wb') as _file:
@@ -55,7 +55,6 @@ def write(bytes, filename):
 def read_dated(source, filedate='', subset='index', ext='html'):
     filedate = filedate if filedate else str(date.today())
     filename = f'{source}{settings.SEP}{date}{settings.SEP}{subset}.{ext}'
-    filename = os.path.join(settings.TMP_DIR, filename)
 
     return read(filename)
 
@@ -63,6 +62,7 @@ def read_dated(source, filedate='', subset='index', ext='html'):
 def read(filename):
     fp.info(fp.fgb('Reading data from local file...'))
 
+    filename = os.path.join(settings.TMP_DIR, filename)
     try:
         with open(filename, 'r') as _file:
             content = _file.read()
