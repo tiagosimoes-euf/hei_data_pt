@@ -2,8 +2,8 @@
 import os
 import subprocess
 
-from starterkit import settings
-from starterkit.utils import fancyprint as fp
+from ptdata import settings
+from ptdata.utils import fancyprint as fp
 
 
 def main(*args):

@@ -1,5 +1,5 @@
 
-from starterkit.utils import fancyprint as fp
+from ptdata.utils import fancyprint as fp
 
 
 def main(*args):

@@ -1,4 +1,4 @@
-# Python 3.x CLI application starterkit
+# Higher Education Institution data aggregator - Portugal
 
 Boilerplate CLI application with some utilities.
 
@@ -21,7 +21,7 @@ For development purposes, run the following command instead:
 
 This application can perform several operations, each requiring the execution of a particular command inside the virtual environment mentioned above:
 
-    python starterkit/manage.py <command>
+    python ptdata/manage.py <command>
 
 ### List of commands
 

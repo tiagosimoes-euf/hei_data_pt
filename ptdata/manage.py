@@ -7,7 +7,7 @@ from importlib import import_module
 
 def main(cmd):
     try:
-        script = import_module(f'starterkit.scripts.{cmd}')
+        script = import_module(f'ptdata.scripts.{cmd}')
     except ImportError:
         sys.exit(f'Invalid command: {cmd}')
     else:
