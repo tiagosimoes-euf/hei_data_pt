@@ -5,6 +5,15 @@ TMP_DIR = 'tmp'
 # Filename separator.
 SEP = '__'
 
+# Database directory.
+DB_DIR = ''
+
+# Database filename.
+DB_FILENAME = 'data.db'
+
+# Primary database table.
+DB_TABLE = 'main'
+
 # Primary source filename prefix.
 PRIMARY_PREFIX = 'dgeec'
 
@@ -16,6 +25,9 @@ PRIMARY_UPDATED_PARAM = 'form'
 
 # Substring indicating location of published date.
 PRIMARY_UPDATED_GREP = 'Atualizado em'
+
+# Expected published date.
+PRIMARY_UPDATED_EXPECTED = '2022-12-06'
 
 # Query parameter to obtain paged results.
 PRIMARY_PAGED_PARAM = 'page'
