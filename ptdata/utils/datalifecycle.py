@@ -1,5 +1,6 @@
 
 import os
+import time
 from datetime import date
 
 import requests
@@ -15,6 +16,7 @@ def get(url, path_args=None, params_dict=None):
         url = '/'.join([url, *path_args])
 
     response = requests.get(url, params_dict)
+    time.sleep(1)
 
     if response.status_code == requests.codes.ok:
         fp.success(f'GET {fp.fgg(response.url)}')
@@ -32,6 +34,7 @@ def post(url, data_dict):
     fp.info(fp.fgb('Posting data to remote form...'))
 
     response = requests.post(url, data_dict)
+    time.sleep(1)
 
     if response.status_code == requests.codes.ok:
         fp.success(f'POST {fp.fgg(response.url)}')
