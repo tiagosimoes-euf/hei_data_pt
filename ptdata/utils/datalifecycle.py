@@ -91,3 +91,9 @@ def read(filename):
         return ''
 
     return content
+
+
+def file_exists(filename):
+    filename = os.path.join(settings.TMP_DIR, filename)
+
+    return os.path.exists(filename)
