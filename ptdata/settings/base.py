@@ -29,14 +29,17 @@ PRIMARY_UPDATED_GREP = 'Atualizado em'
 # Expected published date.
 PRIMARY_UPDATED_EXPECTED = '2022-12-06'
 
-# Query parameter to obtain paged results.
-PRIMARY_PAGED_PARAM = 'page'
+# URL suffix to obtain paged results from POST.
+PRIMARY_PAGED_SUFFIX = '?page='
+
+# Substring indicating paged output.
+PRIMARY_PAGED_GREP = '15 por página'
 
 # Table headers in paged results and corresponding DataFrame headers.
 PRIMARY_PAGED_TO_DF = {
     'Nome do estabelecimento': 'nomeEstabelecimento',
     'Tipo de Ensino': 'tipoEnsino',
-    'Dependência': 'dependencia',
+    'Dependência': 'depende',
     'Distrito': 'distrito',
 }
 

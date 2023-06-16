@@ -1,10 +1,10 @@
 # Roadmap for data acquisition, processing and export
 
-- Retrieve unprocessed data from Portuguese official sources.
-- Minimize HTTP requests by storing temporary files.
-- Parse unprocessed data (expected in HTML format).
-- Minimize processing by tracking publication date.
-- Aggregate and store processed data in CSV format.
+- **DONE:** _Retrieve unprocessed data from Portuguese official sources._
+- **DONE:** _Minimize HTTP requests by storing temporary files._
+- **DONE:** _Parse unprocessed data (expected in HTML format)._
+- **DONE:** _Minimize processing by tracking publication date._
+- **DONE:** _Aggregate and store processed data in CSV format._
 - Expand the data set with more open data from Portugal.
 - Expand the data set with ECHE holders list data.
 - Export relevant ECHE data for NA validation.
