@@ -28,6 +28,23 @@ def get(url, path_args=None, params_dict=None):
     return status, response.content, response.headers["content-type"]
 
 
+def post(url, data_dict):
+    fp.info(fp.fgb('Posting data to remote form...'))
+
+    response = requests.post(url, data_dict)
+
+    if response.status_code == requests.codes.ok:
+        fp.success(f'POST {fp.fgg(response.url)}')
+        fp.notice(f'Content type: {fp.fgc(response.headers["content-type"])}')
+        status = True
+    else:
+        fp.error(f'POST {fp.fgr(response.url)}')
+        fp.notice(f'Response status code: {fp.fgc(response.status_code)}')
+        status = False
+
+    return status, response.content, response.headers["content-type"]
+
+
 def write_dated(bytes, source, filedate='', subset='index', ext='csv'):
     filedate = filedate if filedate else str(date.today())
     filename = f'{source}{settings.SEP}{filedate}{settings.SEP}{subset}.{ext}'
