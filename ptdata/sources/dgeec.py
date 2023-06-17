@@ -83,9 +83,6 @@ def fetch(refresh=False):
                 paged_data.append(df_page)
 
             df_dgeec = frames.concat(paged_data)
-            df_dgeec.replace({'': None}, inplace=True)
-            df_dgeec.replace({'--': None}, inplace=True)
-
             df_dgeec_csv = df_dgeec.to_csv(index=False)
             dlc.write(df_dgeec_csv.encode(), filename)
             fp.success(f'{fp.fgg("DGEEC")} data has been retrieved')
@@ -148,3 +145,37 @@ def expand(df):
         record = df_record.reset_index(drop=True).squeeze()
         for c in new_columns:
             df.loc[i, c] = record[c]
+
+
+def normalize(df):
+    df.replace({'': None}, inplace=True)
+    df.replace({'--': None}, inplace=True)
+
+    phone_cols = [
+        'telefone',
+        'outroTelefone',
+        'fax',
+        'outroFax',
+    ]
+
+    for col in phone_cols:
+        df[col] = df[col].map(lambda x: phone_format(x))
+
+    _sep = ';'
+    _first = 'telefone'
+    _second = 'outroTelefone'
+
+    for i, row in df.iterrows():
+        _first_val = row[_first] if row[_first] else ''
+        if _sep in _first_val and not row[_second]:
+            numbers = row[_first].split(_sep)
+            df.loc[i, _first] = numbers[0]
+            df.loc[i, _second] = numbers[1]
+
+
+def phone_format(arg):
+    arg = str(arg) if arg else ''
+    arg = ''.join(arg.split(' ')).strip()
+    arg = arg if arg else None
+
+    return arg

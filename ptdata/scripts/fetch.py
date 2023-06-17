@@ -8,7 +8,7 @@ def main(*args):
     fp.start(human_readable)
 
     dgeec_filename = dgeec.fetch(refresh=True)
-    eche_filename = eche.fetch(refersh=True)
+    eche_filename = eche.fetch(refresh=True)
 
     if dgeec_filename and eche_filename:
         fp.success('All source data is available')
