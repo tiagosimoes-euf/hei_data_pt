@@ -68,7 +68,7 @@ SECONDARY_PREFIX = 'geoapi'
 SECONDARY_BASEURL = 'https://json.geoapi.pt/cp/'
 
 # ECHE API prefix.
-ECHEAPI_PREFIX = 'echeapi'
+ECHEAPI_PREFIX = 'eche'
 
 # ECHE API URL for scoped results.
 ECHEAPI_URL = 'https://eche-list.erasmuswithoutpaper.eu/api/countryCodeIso/PT/'

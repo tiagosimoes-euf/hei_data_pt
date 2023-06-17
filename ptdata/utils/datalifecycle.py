@@ -58,17 +58,17 @@ def write_dated(bytes, source, filedate='', subset='index', ext='csv'):
 def write(bytes, filename):
     fp.info(fp.fgb('Writing data to local file...'))
 
-    filename = os.path.join(settings.TMP_DIR, filename)
-    display_dirname = fp.sm(os.path.join(os.path.dirname(filename), ''))
+    fullpath = tmp_path(filename)
+    display_dirname = fp.sm(os.path.join(os.path.dirname(fullpath), ''))
 
-    with open(filename, 'wb') as _file:
+    with open(fullpath, 'wb') as _file:
         _file.write(bytes)
 
-    if not os.path.isfile(filename):
-        display_basename = fp.fgr(os.path.basename(filename))
+    if not os.path.isfile(fullpath):
+        display_basename = fp.fgr(filename)
         fp.error(f'Could not write to {display_dirname}{display_basename}')
     else:
-        display_basename = fp.fgg(os.path.basename(filename))
+        display_basename = fp.fgg(filename)
         fp.success(f'Saved file: {display_dirname}{display_basename}')
 
 
@@ -82,9 +82,10 @@ def read_dated(source, filedate='', subset='index', ext='html'):
 def read(filename):
     fp.info(fp.fgb('Reading data from local file...'))
 
-    filename = os.path.join(settings.TMP_DIR, filename)
+    fullpath = tmp_path(filename)
+
     try:
-        with open(filename, 'r') as _file:
+        with open(fullpath, 'r') as _file:
             content = _file.read()
     except IOError:
         fp.error(f'File not found: {filename}')
@@ -93,7 +94,9 @@ def read(filename):
     return content
 
 
-def file_exists(filename):
-    filename = os.path.join(settings.TMP_DIR, filename)
+def file_exists(fullpath):
+    return os.path.exists(fullpath)
 
-    return os.path.exists(filename)
+
+def tmp_path(filename):
+    return os.path.join(settings.TMP_DIR, filename)

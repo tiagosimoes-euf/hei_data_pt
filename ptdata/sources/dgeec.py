@@ -44,7 +44,7 @@ def fetch(refresh=False):
     filedate = settings.PRIMARY_UPDATED_EXPECTED if up_to_date else str(date.today())
     filename = f'{settings.PRIMARY_PREFIX}{settings.SEP}{filedate}.csv'
 
-    if refresh or not up_to_date or not dlc.file_exists(filename):
+    if refresh or not up_to_date or not dlc.file_exists(dlc.tmp_path(filename)):
         fp.warning('Refreshing data, this may take a while...')
 
         data_dict = {

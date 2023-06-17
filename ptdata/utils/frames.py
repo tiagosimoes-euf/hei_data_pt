@@ -25,3 +25,9 @@ def from_html(table, header=0, extract_links='all'):
     df = dfs[0]
 
     return df
+
+
+def from_csv(filename):
+    df = pd.read_csv(filename)
+
+    return df

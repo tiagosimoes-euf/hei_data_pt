@@ -12,7 +12,7 @@ def fetch(refresh=False):
 
     filename = f'{settings.ECHEAPI_PREFIX}{settings.SEP}{str(date.today())}.csv'
 
-    if refresh or not dlc.file_exists(filename):
+    if refresh or not dlc.file_exists(dlc.tmp_path(filename)):
         status, data, content_type = dlc.get(settings.ECHEAPI_URL)
 
         if status:
