@@ -37,12 +37,15 @@ def check_updated():
 
 
 def fetch(refresh=False):
+    human_readable = 'Fetching data from DGEEC'
+    fp.start(human_readable)
+
     up_to_date = settings.PRIMARY_UPDATED_EXPECTED == check_updated()
     filedate = settings.PRIMARY_UPDATED_EXPECTED if up_to_date else str(date.today())
     filename = f'{settings.PRIMARY_PREFIX}{settings.SEP}{filedate}.csv'
 
     if refresh or not up_to_date or not dlc.file_exists(filename):
-        fp.warning('Refreshing data...')
+        fp.warning('Refreshing data, this may take a while...')
 
         data_dict = {
             'nome': None,
@@ -85,9 +88,13 @@ def fetch(refresh=False):
 
             df_dgeec_csv = df_dgeec.to_csv(index=False)
             dlc.write(df_dgeec_csv.encode(), filename)
+            fp.success(f'{fp.fgg("DGEEC")} data has been retrieved')
     else:
-        fp.success('File exists and is up to date')
+        fp.success(f'{fp.fgg("DGEEC")} data is available and up to date')
 
+    fp.end(human_readable)
+
+    return filename
 
 def fetch_page(url, page, data_dict):
     status, data, content_type = dlc.post(f'{url}{str(page)}', data_dict=data_dict)

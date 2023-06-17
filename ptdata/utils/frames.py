@@ -2,6 +2,12 @@
 import pandas as pd
 
 
+def to_df(dict_list):
+    df = pd.DataFrame.from_dict(dict_list)
+
+    return df
+
+
 def concat(df_list):
     df = pd.concat(df_list, ignore_index=True)
 
