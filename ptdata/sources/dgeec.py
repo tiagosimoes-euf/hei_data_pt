@@ -93,6 +93,7 @@ def fetch(refresh=False):
 
     return filename
 
+
 def fetch_page(url, page, data_dict):
     status, data, content_type = dlc.post(f'{url}{str(page)}', data_dict=data_dict)
 

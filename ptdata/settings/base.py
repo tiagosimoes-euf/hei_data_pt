@@ -72,3 +72,6 @@ ECHEAPI_PREFIX = 'eche'
 
 # ECHE API URL for scoped results.
 ECHEAPI_URL = 'https://eche-list.erasmuswithoutpaper.eu/api/countryCodeIso/PT/'
+
+# Processed column for postal code matching.
+CLEAN_POSTAL = 'cp7'
