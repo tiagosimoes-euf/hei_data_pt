@@ -8,17 +8,15 @@ def main(*args):
     fp.start(human_readable)
 
     df_hei = load_dgeec()
-
-    print(df_hei[df_hei[settings.CLEAN_POSTAL].str.len() != 8])
-
     df_eche = load_eche()
-
-    print(df_eche[df_eche[settings.CLEAN_POSTAL].str.len() != 8])
 
     fp.end(human_readable)
 
 
 def load_dgeec():
+    human_readable = 'Processing postal codes in DGEEC data'
+    fp.start(human_readable)
+
     dgeec_fields = [
         'nomeEstabelecimento',
         'depende',
@@ -31,11 +29,17 @@ def load_dgeec():
     df_hei = df_dgeec[df_dgeec['depende'].isnull()].copy()
 
     postal.normalize(df_hei, 'codigoPostal')
+    report(df_hei)
+
+    fp.end(human_readable)
 
     return df_hei
 
 
 def load_eche():
+    human_readable = 'Processing postal codes in ECHE data'
+    fp.start(human_readable)
+
     eche_fields = [
         'organisationLegalName',
         'erasmusCodeNormalized',
@@ -46,5 +50,22 @@ def load_eche():
     df_eche = db.fetch(fields=eche_fields, table=settings.ECHEAPI_PREFIX)
 
     postal.normalize(df_eche, 'postalCode')
+    report(df_eche)
+
+    fp.end(human_readable)
 
     return df_eche
+
+
+def report(df):
+    df_issues = df[df[settings.CLEAN_POSTAL].str.len() != 8]
+    if df_issues.empty:
+        fp.success('Found valid postal codes for all entries')
+    else:
+        df_missing = df[df[settings.CLEAN_POSTAL].isnull()]
+        if not df_missing.empty:
+            fp.error(f'Missing {fp.fgr(len(df_missing))} postal codes')
+
+        df_partial = df_issues[df_issues[settings.CLEAN_POSTAL].notnull()]
+        if not df_partial.empty:
+            fp.warning(f'Found {fp.fgy(len(df_partial))} partial postal codes')
