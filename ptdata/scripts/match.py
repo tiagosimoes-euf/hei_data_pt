@@ -10,6 +10,35 @@ def main(*args):
     df_hei = load_dgeec()
     df_eche = load_eche()
 
+    df_match = df_eche[[
+        'erasmusCodeNormalized',
+        'postalCode',
+        settings.CLEAN_POSTAL,
+    ]].copy()
+
+    for col in ['codigoEstabelecimento', 'codigoPostal']:
+        df_match[col] = None
+
+    total = len(df_match)
+    matches = 0
+
+    for i, row in df_hei.iterrows():
+        match_value = row[settings.CLEAN_POSTAL]
+        df_partial = df_match[df_match[settings.CLEAN_POSTAL] == match_value]
+
+        if df_partial.empty:
+            fp.error(f'No matches found for {fp.fgr(match_value)}')
+        elif len(df_partial) > 1:
+            fp.warning(f'Too many matches found for {fp.fgy(match_value)}')
+            print(df_partial)
+        else:
+            fp.success(f'Found a match for {fp.fgg(match_value)}')
+            matches += 1
+            # row_match = df_partial.squeeze()
+
+    if matches != total:
+        fp.warning(f'Matched {fp.fgy(matches)} out of {fp.fgy(total)} entries')
+
     fp.end(human_readable)
 
 
