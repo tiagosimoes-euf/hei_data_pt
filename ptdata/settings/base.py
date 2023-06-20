@@ -14,29 +14,29 @@ DB_FILENAME = 'data.db'
 # Primary database table.
 DB_TABLE = 'main'
 
-# Primary source filename prefix.
-PRIMARY_PREFIX = 'dgeec'
+# DGEEC source filename prefix.
+DGEEC_PREFIX = 'dgeec'
 
-# Primary source base URL.
-PRIMARY_BASEURL = 'https://www.dgeec.mec.pt/np4/38/'
+# DGEEC source base URL.
+DGEEC_BASEURL = 'https://www.dgeec.mec.pt/np4/38/'
 
 # Query parameter to obtain published date.
-PRIMARY_UPDATED_PARAM = 'form'
+DGEEC_UPDATED_PARAM = 'form'
 
 # Substring indicating location of published date.
-PRIMARY_UPDATED_GREP = 'Atualizado em'
+DGEEC_UPDATED_GREP = 'Atualizado em'
 
 # Expected published date.
-PRIMARY_UPDATED_EXPECTED = '2022-12-06'
+DGEEC_UPDATED_EXPECTED = '2022-12-06'
 
 # URL suffix to obtain paged results from POST.
-PRIMARY_PAGED_SUFFIX = '?page='
+DGEEC_PAGED_SUFFIX = '?page='
 
 # Substring indicating paged output.
-PRIMARY_PAGED_GREP = '15 por página'
+DGEEC_PAGED_GREP = '15 por página'
 
 # Table headers in paged results and corresponding DataFrame headers.
-PRIMARY_PAGED_TO_DF = {
+DGEEC_PAGED_TO_DF = {
     'Nome do estabelecimento': 'nomeEstabelecimento',
     'Tipo de Ensino': 'tipoEnsino',
     'Dependência': 'depende',
@@ -44,7 +44,7 @@ PRIMARY_PAGED_TO_DF = {
 }
 
 # Field names in individual results and corresponding DataFrame headers.
-PRIMARY_RESULT_TO_DF = {
+DGEEC_RESULT_TO_DF = {
     'Nome do Estabelecimento': 'nomeEstabelecimento',
     'Depende de': 'depende',
     'Código do Estabelecimento': 'codigoEstabelecimento',
@@ -61,11 +61,8 @@ PRIMARY_RESULT_TO_DF = {
     'Outro Fax': 'outroFax',
 }
 
-# Secondary source filename prefix.
-SECONDARY_PREFIX = 'geoapi'
-
-# Secondary source base URL.
-SECONDARY_BASEURL = 'https://json.geoapi.pt/cp/'
+# DGEEC source unique ID.
+DGEEC_ID = 'codigoEstabelecimento'
 
 # ECHE API prefix.
 ECHEAPI_PREFIX = 'eche'
@@ -73,5 +70,18 @@ ECHEAPI_PREFIX = 'eche'
 # ECHE API URL for scoped results.
 ECHEAPI_URL = 'https://eche-list.erasmuswithoutpaper.eu/api/countryCodeIso/PT/'
 
-# Processed column for postal code matching.
-CLEAN_POSTAL = 'cp7'
+# ECHE API source unique ID.
+ECHEAPI_ID = 'erasmusCodeNormalized'
+
+# Processed columns for postal code matching.
+CLEAN_CP7 = 'cp7'
+CLEAN_CP4 = 'cp4'
+
+# Processed column for FQDN matching.
+CLEAN_FQDN = 'fqdn'
+
+# Parameters for URL parsing.
+SUBDOMAINS_TO_REMOVE = [
+    'novoportal',
+    'www',
+]
