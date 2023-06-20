@@ -18,7 +18,7 @@ def main(*args):
 
         df_dgeec = frames.from_csv(dlc.tmp_path(dgeec_filename))
         dgeec.normalize(df_dgeec)
-        db.save(df_dgeec, settings.PRIMARY_PREFIX)
+        db.save(df_dgeec, settings.DGEEC_PREFIX)
 
         df_eche = frames.from_csv(dlc.tmp_path(eche_filename))
         db.save(df_eche, settings.ECHEAPI_PREFIX)
