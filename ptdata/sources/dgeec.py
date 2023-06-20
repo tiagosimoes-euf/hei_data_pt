@@ -8,11 +8,11 @@ from ptdata.utils import datalifecycle as dlc, fancyprint as fp, frames
 
 
 def check_updated():
-    params = {settings.PRIMARY_UPDATED_PARAM: 1}
-    status, data, content_type = dlc.get(settings.PRIMARY_BASEURL, params_dict=params)
+    params = {settings.DGEEC_UPDATED_PARAM: 1}
+    status, data, content_type = dlc.get(settings.DGEEC_BASEURL, params_dict=params)
 
     if status:
-        updated_date = settings.PRIMARY_UPDATED_EXPECTED
+        updated_date = settings.DGEEC_UPDATED_EXPECTED
 
         soup = BeautifulSoup(data.decode(), features="html.parser")
 
@@ -22,7 +22,7 @@ def check_updated():
         content = soup.get_text()
 
         for line in content.splitlines():
-            if settings.PRIMARY_UPDATED_GREP in line:
+            if settings.DGEEC_UPDATED_GREP in line:
                 parts = line.split(' ')
 
                 if parts[-1] == updated_date:
@@ -40,9 +40,9 @@ def fetch(refresh=False):
     human_readable = 'Fetching data from DGEEC'
     fp.start(human_readable)
 
-    up_to_date = settings.PRIMARY_UPDATED_EXPECTED == check_updated()
-    filedate = settings.PRIMARY_UPDATED_EXPECTED if up_to_date else str(date.today())
-    filename = f'{settings.PRIMARY_PREFIX}{settings.SEP}{filedate}.csv'
+    up_to_date = settings.DGEEC_UPDATED_EXPECTED == check_updated()
+    filedate = settings.DGEEC_UPDATED_EXPECTED if up_to_date else str(date.today())
+    filename = f'{settings.DGEEC_PREFIX}{settings.SEP}{filedate}.csv'
 
     if refresh or not up_to_date or not dlc.file_exists(dlc.tmp_path(filename)):
         fp.warning('Refreshing data, this may take a while...')
@@ -55,7 +55,7 @@ def fetch(refresh=False):
             'search': 'Pesquisar'
         }
 
-        url = f'{settings.PRIMARY_BASEURL}{settings.PRIMARY_PAGED_SUFFIX}'
+        url = f'{settings.DGEEC_BASEURL}{settings.DGEEC_PAGED_SUFFIX}'
         soup = fetch_page(url, 0, data_dict)
 
         content = soup.get_text()
@@ -63,7 +63,7 @@ def fetch(refresh=False):
         max_index = None
 
         for line in content.splitlines():
-            if settings.PRIMARY_PAGED_GREP in line:
+            if settings.DGEEC_PAGED_GREP in line:
                 parts = line.split(' ')
                 max_index = int(parts[0]) // 15
 
@@ -77,7 +77,7 @@ def fetch(refresh=False):
                 df_page = frames.from_html(table)
 
                 clean_links(df_page)
-                df_page.rename(columns=settings.PRIMARY_PAGED_TO_DF, inplace=True)
+                df_page.rename(columns=settings.DGEEC_PAGED_TO_DF, inplace=True)
                 expand(df_page)
 
                 paged_data.append(df_page)
@@ -117,12 +117,12 @@ def clean_links(df):
                 _value, _link = row[col]
                 df.loc[i, col] = _value
                 if j == 0:
-                    df.loc[i, 'link'] = f'{settings.PRIMARY_BASEURL}{_link[2:]}'
+                    df.loc[i, 'link'] = f'{settings.DGEEC_BASEURL}{_link[2:]}'
 
 
 def expand(df):
-    paged_columns = settings.PRIMARY_PAGED_TO_DF.values()
-    result_columns = settings.PRIMARY_RESULT_TO_DF.values()
+    paged_columns = settings.DGEEC_PAGED_TO_DF.values()
+    result_columns = settings.DGEEC_RESULT_TO_DF.values()
     new_columns = [c for c in result_columns if c not in paged_columns]
 
     for c in new_columns:
@@ -141,7 +141,7 @@ def expand(df):
         headers = df_record.iloc[0].values
         df_record.columns = headers
         df_record.drop(index=0, axis=0, inplace=True)
-        df_record.rename(columns=settings.PRIMARY_RESULT_TO_DF, inplace=True)
+        df_record.rename(columns=settings.DGEEC_RESULT_TO_DF, inplace=True)
 
         record = df_record.reset_index(drop=True).squeeze()
         for c in new_columns:
