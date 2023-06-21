@@ -1,19 +1,22 @@
 
 
-def choose_from(options):
-    user_input = ''
+def choose_from(options, required=False):
+    caveat = ' or leave empty' if not required else ''
+    input_message = f'Pick an option{caveat}:\n'
 
-    input_message = 'Pick an option:\n'
+    user_input = ''
+    valid = False
 
     for index, item in enumerate(options):
         input_message += f'{index + 1}) {item}\n'
 
     input_message += 'Your choice: '
 
-    while user_input not in map(str, range(1, len(options) + 1)):
+    while user_input not in map(str, range(1, len(options) + 1)) and not valid:
         user_input = input(input_message)
+        valid = ~required or user_input
 
-    return options[int(user_input) - 1]
+    return options[int(user_input) - 1] if user_input else None
 
 
 def provide_value(required=False):
