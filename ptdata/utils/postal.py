@@ -19,15 +19,15 @@ def normalize(df, src_col):
     total_cp7 = len(df[df[settings.CLEAN_CP7].notnull()])
     total_cp4 = len(df[df[settings.CLEAN_CP4].notnull()])
 
-    cp7_ratio = "{:.0%}".format(total_cp7 / total_rows)
-    cp4_ratio = "{:.0%}".format(total_cp4 / total_rows)
+    cp7_ratio = "{:.2%}".format(total_cp7 / total_rows)
+    cp4_ratio = "{:.2%}".format(total_cp4 / total_rows)
 
     if total_cp7 == total_rows:
-        fp.success(f'Found {fp.fgg(total_cp7)} full postal codes ({fp.fgg(cp7_ratio)})')
+        fp.success(f'Found {fp.fgg(total_cp7)} full postal codes ({fp.fgg("100%")})')
     else:
         fp.warning(f'Found {fp.fgy(total_cp7)} full postal codes ({fp.fgy(cp7_ratio)})')
         if total_cp4 == total_rows:
-            fp.success(f'Found {fp.fgg(total_cp4)} partial postal codes ({fp.fgg(cp4_ratio)})')
+            fp.success(f'Found {fp.fgg(total_cp4)} partial postal codes ({fp.fgg("100%")})')
         else:
             fp.warning(f'Found {fp.fgy(total_cp4)} partial postal codes ({fp.fgy(cp4_ratio)})')
 

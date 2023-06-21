@@ -2,6 +2,7 @@
 from urllib.parse import urlparse
 
 from ptdata import settings
+from ptdata.utils import fancyprint as fp
 
 
 def normalize(df, src_col):
@@ -11,6 +12,16 @@ def normalize(df, src_col):
         raw_url = row[src_col]
         fqdn = get_fqdn(raw_url)
         df.loc[i, settings.CLEAN_FQDN] = fqdn
+
+    total_rows = len(df)
+    total_fqdn = len(df[df[settings.CLEAN_FQDN].notnull()])
+
+    fqdn_ratio = "{:.2%}".format(total_fqdn / total_rows)
+
+    if total_fqdn == total_rows:
+        fp.success(f'Found {fp.fgg(total_fqdn)} fully qualified domain names ({fp.fgg("100%")})')
+    else:
+        fp.warning(f'Found {fp.fgy(total_fqdn)} fully qualified domain names ({fp.fgy(fqdn_ratio)})')
 
 
 def get_fqdn(url):
