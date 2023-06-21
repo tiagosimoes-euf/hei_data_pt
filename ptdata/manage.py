@@ -16,7 +16,7 @@ def main(cmd):
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        sys.exit('Usage: ./manage.py fancydemo|lint|shell')
+        sys.exit('Usage: ./manage.py fetch|load|match|compile|export|fancydemo|lint|shell')
     else:
         # Check for active virtualenv
         if 'VIRTUAL_ENV' not in os.environ:
