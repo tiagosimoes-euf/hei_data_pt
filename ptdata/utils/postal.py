@@ -15,6 +15,22 @@ def normalize(df, src_col):
         df.loc[i, settings.CLEAN_CP7] = clean_cp7
         df.loc[i, settings.CLEAN_CP4] = clean_cp4
 
+    total_rows = len(df)
+    total_cp7 = len(df[df[settings.CLEAN_CP7].notnull()])
+    total_cp4 = len(df[df[settings.CLEAN_CP4].notnull()])
+
+    cp7_ratio = "{:.0%}".format(total_cp7 / total_rows)
+    cp4_ratio = "{:.0%}".format(total_cp4 / total_rows)
+
+    if total_cp7 == total_rows:
+        fp.success(f'Found {fp.fgg(total_cp7)} full postal codes ({fp.fgg(cp7_ratio)})')
+    else:
+        fp.warning(f'Found {fp.fgy(total_cp7)} full postal codes ({fp.fgy(cp7_ratio)})')
+        if total_cp4 == total_rows:
+            fp.success(f'Found {fp.fgg(total_cp4)} partial postal codes ({fp.fgg(cp4_ratio)})')
+        else:
+            fp.warning(f'Found {fp.fgy(total_cp4)} partial postal codes ({fp.fgy(cp4_ratio)})')
+
 
 def clean(value):
     parts = value.split(' ')
@@ -37,7 +53,7 @@ def clean(value):
         if cp3 and re.match(r'\d{4}-\d{3}', f'{cp4}-{cp3}'):
             cp7 = f'{cp4}-{cp3}'
         else:
-            fp.warning(f'Storing partial postal code {fp.fgy(cp4)}')
+            fp.warning(f'Only partial postal code {fp.fgy(cp4)} is available')
 
     if not cp4:
         fp.error(f'Cannot find a match for {fp.fgr(value)}')
