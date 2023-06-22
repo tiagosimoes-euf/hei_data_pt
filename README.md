@@ -25,6 +25,16 @@ This application can perform several operations, each requiring the execution of
 
 ### List of commands
 
+This application allows the user to:
+
+- `fetch` data from all sources and store files in the `tmp/` directory.
+- `load` the data from the existing files onto a local SQLite3 database.
+- `match` **ECHE List** data with the corresponding entries identified in **DGEEC**. _Interactive command._
+- `compile` data for the **ECHE API**, generating a **verified** data set. _Interactive command._
+- `export` CSV file with verified data matching the **ECHE API** specification.
+
+### Helper commands for development
+
 - The `fancydemo` command showcases formatted CLI output used in scripts.
 - The `lint` command enforces style guide and sorts imports in scripts.
 - The `shell` command provides an interactive Python shell.

@@ -7,5 +7,5 @@
 - **DONE:** _Aggregate and store processed data in CSV format._
 - _POSTPONED:_ Expand the data set with more open data from Portugal.
 - **DONE:** _Expand the data set with ECHE holders list data._
-- Export relevant ECHE data for NA validation.
+- **DONE:** _Export relevant ECHE data for NA validation_.
 - Add verified data to the ECHE List API.
