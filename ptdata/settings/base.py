@@ -73,11 +73,13 @@ ECHEAPI_PREFIX = 'eche'
 # ECHE API URL for scoped results.
 ECHEAPI_URL = 'https://eche-list.erasmuswithoutpaper.eu/api/countryCodeIso/PT/'
 
-# ECHE API source unique ID.
+# ECHE API source unique IDs.
 ECHEAPI_ID = 'erasmusCodeNormalized'
+ECHEAPI_PIC = 'pic'
 
-# ECHE API source unique ID.
+# ECHE API source name fields.
 ECHEAPI_NAME = 'organisationLegalName'
+ECHEAPI_DISPLAY = 'displayName'
 
 # Processed columns for postal code matching.
 CLEAN_CP7 = 'cp7'
@@ -90,4 +92,20 @@ CLEAN_FQDN = 'fqdn'
 SUBDOMAINS_TO_REMOVE = [
     'novoportal',
     'www',
+]
+
+# Default language tag for verified data.
+DEFAULT_LANG = 'pt'
+
+# Verified data fields, minus the name.
+VERIFIED_COLS = [
+    'organisationLegalName',
+    'organisationLegalNameLang',
+    'displayName',
+    'displayNameLang',
+    'street',
+    'postalCode',
+    'city',
+    'cityLang',
+    'webpage',
 ]

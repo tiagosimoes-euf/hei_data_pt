@@ -32,3 +32,13 @@ ECHEAPI_DISPLAY_COLS = [
     ECHEAPI_ID,
     *CLEAN_FQDN,
 ]
+
+# Reference columns for verified data.
+VERIFIED_REF = [
+    ECHEAPI_ID,
+    ECHEAPI_PIC,
+]
+
+# ECHE API source name fields.
+ECHEAPI_NAME_LANG = f'{ECHEAPI_NAME}Lang'
+ECHEAPI_DISPLAY_LANG = f'{ECHEAPI_DISPLAY}Lang'
