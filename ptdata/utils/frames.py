@@ -2,8 +2,14 @@
 import pandas as pd
 
 
-def to_df(dict_list):
+def dicts_to_df(dict_list):
     df = pd.DataFrame.from_dict(dict_list)
+
+    return df
+
+
+def tuples_to_df(tuples_list, columns):
+    df = pd.DataFrame.from_records(tuples_list, columns=columns)
 
     return df
 
