@@ -64,6 +64,9 @@ DGEEC_RESULT_TO_DF = {
 # DGEEC source unique ID.
 DGEEC_ID = 'codigoEstabelecimento'
 
+# DGEEC source name.
+DGEEC_NAME = 'nomeEstabelecimento'
+
 # ECHE API prefix.
 ECHEAPI_PREFIX = 'eche'
 
@@ -72,6 +75,9 @@ ECHEAPI_URL = 'https://eche-list.erasmuswithoutpaper.eu/api/countryCodeIso/PT/'
 
 # ECHE API source unique ID.
 ECHEAPI_ID = 'erasmusCodeNormalized'
+
+# ECHE API source unique ID.
+ECHEAPI_NAME = 'organisationLegalName'
 
 # Processed columns for postal code matching.
 CLEAN_CP7 = 'cp7'

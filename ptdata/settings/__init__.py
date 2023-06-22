@@ -13,3 +13,22 @@ SRC_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__fil
 
 # Absolute directory paths.
 TMP_DIR = os.path.join(SRC_DIR, TMP_DIR)
+
+# Aggregated field sets.
+CLEAN_COLS = [
+    CLEAN_CP4,
+    CLEAN_CP7,
+    CLEAN_FQDN,
+]
+
+DGEEC_DISPLAY_COLS = [
+    DGEEC_NAME,
+    DGEEC_ID,
+    *CLEAN_FQDN,
+]
+
+ECHEAPI_DISPLAY_COLS = [
+    ECHEAPI_NAME,
+    ECHEAPI_ID,
+    *CLEAN_FQDN,
+]
