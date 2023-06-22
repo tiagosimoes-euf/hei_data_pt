@@ -4,36 +4,7 @@ from datetime import date
 from bs4 import BeautifulSoup, Comment
 
 from ptdata import settings
-from ptdata.utils import datalifecycle as dlc, fancyprint as fp, frames
-
-
-def check_updated():
-    params = {settings.DGEEC_UPDATED_PARAM: 1}
-    status, data, content_type = dlc.get(settings.DGEEC_BASEURL, params_dict=params)
-
-    if status:
-        updated_date = settings.DGEEC_UPDATED_EXPECTED
-
-        soup = BeautifulSoup(data.decode(), features="html.parser")
-
-        comment = soup.find(text=lambda t: isinstance(t, Comment))
-        comment.extract()
-
-        content = soup.get_text()
-
-        for line in content.splitlines():
-            if settings.DGEEC_UPDATED_GREP in line:
-                parts = line.split(' ')
-
-                if parts[-1] == updated_date:
-                    fp.success('Updated date matches the expected value')
-                else:
-                    fp.warning('Updated date does not match expected value')
-                    updated_date = parts[-1]
-    else:
-        fp.error('Cannot verify the updated date')
-
-    return updated_date
+from ptdata.utils import datalifecycle as dlc, db, fancyprint as fp, frames, postal, url
 
 
 def fetch(refresh=False):
@@ -92,6 +63,35 @@ def fetch(refresh=False):
     fp.end(human_readable)
 
     return filename
+
+
+def check_updated():
+    params = {settings.DGEEC_UPDATED_PARAM: 1}
+    status, data, content_type = dlc.get(settings.DGEEC_BASEURL, params_dict=params)
+
+    if status:
+        updated_date = settings.DGEEC_UPDATED_EXPECTED
+
+        soup = BeautifulSoup(data.decode(), features="html.parser")
+
+        comment = soup.find(text=lambda t: isinstance(t, Comment))
+        comment.extract()
+
+        content = soup.get_text()
+
+        for line in content.splitlines():
+            if settings.DGEEC_UPDATED_GREP in line:
+                parts = line.split(' ')
+
+                if parts[-1] == updated_date:
+                    fp.success('Updated date matches the expected value')
+                else:
+                    fp.warning('Updated date does not match expected value')
+                    updated_date = parts[-1]
+    else:
+        fp.error('Cannot verify the updated date')
+
+    return updated_date
 
 
 def fetch_page(url, page, data_dict):
@@ -180,3 +180,27 @@ def phone_format(arg):
     arg = arg if arg else None
 
     return arg
+
+
+def load_for_match():
+    human_readable = 'Loading DGEEC data for matching'
+    fp.start(human_readable)
+
+    dgeec_fields = [
+        'nomeEstabelecimento',
+        'depende',
+        'codigoEstabelecimento',
+        'codigoPostal',
+        'website',
+    ]
+
+    df_dgeec = db.fetch(fields=dgeec_fields, table=settings.DGEEC_PREFIX)
+    df_dgeec = df_dgeec[dgeec_fields].copy()
+
+    postal.normalize(df_dgeec, 'codigoPostal')
+    url.normalize(df_dgeec, 'website')
+    db.save(df_dgeec, table='match_dgeec')
+
+    fp.end(human_readable)
+
+    return df_dgeec
